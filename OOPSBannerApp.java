@@ -1,95 +1,78 @@
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * OOPSBannerApp
  *
- * UC7: Store Character Pattern in an Inner Static Class
+ * UC8: Use Map for Character Patterns and Render via Function
  *
  * @author Niraj Pingale
- * @version 7.0
+ * @version 8.0
  */
 public class OOPSBannerApp {
 
-    /**
-     * Inner Static Class to store Character and Pattern
-     */
-    static class CharacterPattern {
-
-        private final char character;
-        private final String[] pattern;
-
-        /**
-         * Constructor
-         * @param character the letter
-         * @param pattern 7-line banner pattern
-         */
-        public CharacterPattern(char character, String[] pattern) {
-            this.character = character;
-            this.pattern = pattern;
-        }
-
-        /**
-         * Getter for character
-         * @return character
-         */
-        public char getCharacter() {
-            return character;
-        }
-
-        /**
-         * Getter for pattern
-         * @return pattern array
-         */
-        public String[] getPattern() {
-            return pattern;
-        }
-    }
-
     public static void main(String[] args) {
 
-        CharacterPattern[] patterns = {
+        Map<Character, String[]> patternMap = buildCharacterPatterns();
 
-                new CharacterPattern('O', new String[]{
-                        "  *****   ",
-                        " *     *  ",
-                        "*       * ",
-                        "*       * ",
-                        "*       * ",
-                        " *     *  ",
-                        "  *****   "
-                }),
+        renderBanner("OOPS", patternMap);
+    }
 
-                new CharacterPattern('P', new String[]{
-                        " ******   ",
-                        " *     *  ",
-                        " *     *  ",
-                        " ******   ",
-                        " *        ",
-                        " *        ",
-                        " *        "
-                }),
+    /**
+     * Builds and returns character pattern map
+     */
+    public static Map<Character, String[]> buildCharacterPatterns() {
 
-                new CharacterPattern('S', new String[]{
-                        " ******  ",
-                        " *     * ",
-                        " *       ",
-                        "  *****  ",
-                        "       * ",
-                        " *     * ",
-                        "  *****  "
-                })
-        };
+        Map<Character, String[]> map = new HashMap<>();
 
-        String word = "OOPS";
+        map.put('O', new String[]{
+                "  *****   ",
+                " *     *  ",
+                "*       * ",
+                "*       * ",
+                "*       * ",
+                " *     *  ",
+                "  *****   "
+        });
+
+        map.put('P', new String[]{
+                " ******   ",
+                " *     *  ",
+                " *     *  ",
+                " ******   ",
+                " *        ",
+                " *        ",
+                " *        "
+        });
+
+        map.put('S', new String[]{
+                " ******  ",
+                " *     * ",
+                " *       ",
+                "  *****  ",
+                "       * ",
+                " *     * ",
+                "  *****  "
+        });
+
+        return map;
+    }
+
+    /**
+     * Renders banner message
+     */
+    public static void renderBanner(String message, Map<Character, String[]> map) {
 
         for (int row = 0; row < 7; row++) {
 
             StringBuilder line = new StringBuilder();
 
-            for (char ch : word.toCharArray()) {
+            for (char ch : message.toCharArray()) {
 
-                for (CharacterPattern cp : patterns) {
-                    if (cp.getCharacter() == ch) {
-                        line.append(cp.getPattern()[row]).append(" ");
-                    }
+                String[] pattern = map.get(ch);
+
+                if (pattern != null) {
+                    line.append(pattern[row]).append(" ");
                 }
             }
 
