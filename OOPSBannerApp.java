@@ -1,70 +1,99 @@
 /**
  * OOPSBannerApp
  *
- * UC6: Refactor Banner Logic into Functions
+ * UC7: Store Character Pattern in an Inner Static Class
  *
  * @author Niraj Pingale
- * @version 6.0
+ * @version 7.0
  */
 public class OOPSBannerApp {
 
+    /**
+     * Inner Static Class to store Character and Pattern
+     */
+    static class CharacterPattern {
+
+        private final char character;
+        private final String[] pattern;
+
+        /**
+         * Constructor
+         * @param character the letter
+         * @param pattern 7-line banner pattern
+         */
+        public CharacterPattern(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
+
+        /**
+         * Getter for character
+         * @return character
+         */
+        public char getCharacter() {
+            return character;
+        }
+
+        /**
+         * Getter for pattern
+         * @return pattern array
+         */
+        public String[] getPattern() {
+            return pattern;
+        }
+    }
+
     public static void main(String[] args) {
 
-        String[] oPattern = getOPattern();
-        String[] pPattern = getPPattern();
-        String[] sPattern = getSPattern();
+        CharacterPattern[] patterns = {
 
-        String[] banner = new String[7];
+                new CharacterPattern('O', new String[]{
+                        "  *****   ",
+                        " *     *  ",
+                        "*       * ",
+                        "*       * ",
+                        "*       * ",
+                        " *     *  ",
+                        "  *****   "
+                }),
 
-        for (int i = 0; i < 7; i++) {
-            banner[i] = String.join(" ",
-                    oPattern[i],
-                    oPattern[i],
-                    pPattern[i],
-                    sPattern[i]);
-        }
+                new CharacterPattern('P', new String[]{
+                        " ******   ",
+                        " *     *  ",
+                        " *     *  ",
+                        " ******   ",
+                        " *        ",
+                        " *        ",
+                        " *        "
+                }),
 
-        for (String line : banner) {
+                new CharacterPattern('S', new String[]{
+                        " ******  ",
+                        " *     * ",
+                        " *       ",
+                        "  *****  ",
+                        "       * ",
+                        " *     * ",
+                        "  *****  "
+                })
+        };
+
+        String word = "OOPS";
+
+        for (int row = 0; row < 7; row++) {
+
+            StringBuilder line = new StringBuilder();
+
+            for (char ch : word.toCharArray()) {
+
+                for (CharacterPattern cp : patterns) {
+                    if (cp.getCharacter() == ch) {
+                        line.append(cp.getPattern()[row]).append(" ");
+                    }
+                }
+            }
+
             System.out.println(line);
         }
-    }
-
-    // Helper method for O pattern
-    public static String[] getOPattern() {
-        return new String[] {
-                "  *****   ",
-                " *     *  ",
-                "*       * ",
-                "*       * ",
-                "*       * ",
-                " *     *  ",
-                "  *****   "
-        };
-    }
-
-    // Helper method for P pattern
-    public static String[] getPPattern() {
-        return new String[] {
-                " ******   ",
-                " *     *  ",
-                " *     *  ",
-                " ******   ",
-                " *        ",
-                " *        ",
-                " *        "
-        };
-    }
-
-    // Helper method for S pattern
-    public static String[] getSPattern() {
-        return new String[] {
-                " ******  ",
-                " *     * ",
-                " *       ",
-                "  *****  ",
-                "       * ",
-                " *     * ",
-                "  *****  "
-        };
     }
 }
