@@ -1,64 +1,70 @@
 /**
  * OOPSBannerApp
  *
- * UC5: Render OOPS as Banner using Inline Array Initialization
+ * UC6: Refactor Banner Logic into Functions
  *
  * @author Niraj Pingale
- * @version 5.0
+ * @version 6.0
  */
 public class OOPSBannerApp {
 
     public static void main(String[] args) {
 
-        // Inline array initialization with String.join()
-        String[] banner = {
+        String[] oPattern = getOPattern();
+        String[] pPattern = getPPattern();
+        String[] sPattern = getSPattern();
 
-                String.join(" ",
-                        "  *****   ",
-                        "  *****   ",
-                        " ******   ",
-                        " ******  "),
+        String[] banner = new String[7];
 
-                String.join(" ",
-                        " *     *  ",
-                        " *     *  ",
-                        " *     *  ",
-                        " *     * "),
+        for (int i = 0; i < 7; i++) {
+            banner[i] = String.join(" ",
+                    oPattern[i],
+                    oPattern[i],
+                    pPattern[i],
+                    sPattern[i]);
+        }
 
-                String.join(" ",
-                        "*       * ",
-                        "*       * ",
-                        " *     *  ",
-                        " *       "),
-
-                String.join(" ",
-                        "*       * ",
-                        "*       * ",
-                        " ******   ",
-                        "  *****  "),
-
-                String.join(" ",
-                        "*       * ",
-                        "*       * ",
-                        " *        ",
-                        "       * "),
-
-                String.join(" ",
-                        " *     *  ",
-                        " *     *  ",
-                        " *        ",
-                        " *     * "),
-
-                String.join(" ",
-                        "  *****   ",
-                        "  *****   ",
-                        " *        ",
-                        "  *****  ")
-        };
-
-        // Enhanced for loop
         for (String line : banner) {
             System.out.println(line);
         }
+    }
+
+    // Helper method for O pattern
+    public static String[] getOPattern() {
+        return new String[] {
+                "  *****   ",
+                " *     *  ",
+                "*       * ",
+                "*       * ",
+                "*       * ",
+                " *     *  ",
+                "  *****   "
+        };
+    }
+
+    // Helper method for P pattern
+    public static String[] getPPattern() {
+        return new String[] {
+                " ******   ",
+                " *     *  ",
+                " *     *  ",
+                " ******   ",
+                " *        ",
+                " *        ",
+                " *        "
+        };
+    }
+
+    // Helper method for S pattern
+    public static String[] getSPattern() {
+        return new String[] {
+                " ******  ",
+                " *     * ",
+                " *       ",
+                "  *****  ",
+                "       * ",
+                " *     * ",
+                "  *****  "
+        };
     }
 }
